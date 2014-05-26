@@ -128,8 +128,8 @@
 	      </div>
 	      
 	      <div class="row">
-		<div class="col-md-4">Imagen</div>
-		<div class="col-md-4"><input id="inputDescripcion"/></div>
+		<div class="col-md-4">Etiquetas</div>
+		<div class="col-md-4"><input id="inputEtiquetas"/></div>
 	      </div>
 	      
 	    </div>
@@ -171,6 +171,7 @@
 	      figura.set("nombre", document.getElementById("inputTitulo").value);
 	      figura.set("descripcion", document.getElementById("inputDescripcion").value);
 	      figura.set("serie", document.getElementById("inputSerie").value);
+	     
 	     
 	      figura.save(null, {
 		success: function(figura) {
