@@ -61,7 +61,9 @@
                     });
                     modal.addClass('in');
                 }, factoryInterface);
+	    console.debug("SEE THIS");
             modal.find('.modal-title').text(element.title || String.fromCharCode(160));
+	    modal.find('.modal-description').text(element.description || String.fromCharCode(160));
             modal.find('.modal-body').append(element);
             return modal[0];
         },
