@@ -31,6 +31,7 @@
 /home/emma/Projects/tinylego/platforms/android/assets/www/js/parse-1.2.18.js \
 /home/emma/Projects/tinylego/platforms/android/assets/www/js/index.js \
 /home/emma/Projects/tinylego/platforms/android/assets/www/js/parse-1.2.18.min.js \
+/home/emma/Projects/tinylego/platforms/android/assets/www/js/backend-conexion.js \
 /home/emma/Projects/tinylego/platforms/android/assets/www/js/bootstrap-image-gallery.js \
 /home/emma/Projects/tinylego/platforms/android/assets/www/js/demo.js \
 /home/emma/Projects/tinylego/platforms/android/assets/www/js/bootstrap-image-gallery.min.js \
