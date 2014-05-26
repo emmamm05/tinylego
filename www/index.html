@@ -113,7 +113,7 @@
 		  var object = results[i];
 		  var url = object.get('foto').url();
 		  var title = object.get('nombre');
-		  document.getElementById('links').innerHTML= 
+		  document.getElementById('links').innerHTML= document.getElementById('links').innerHTML + 
 		    "<a href='"+ url +"' title="+title+" data-gallery><img src='"+
 		    + url +
 		    "' alt='Banana'></a>";
