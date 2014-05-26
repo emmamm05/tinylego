@@ -180,41 +180,36 @@
 	    });
 	      //Etiquetas
 	    var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');
-	    var etiquetas = [];
 	    for (var i = 0; i < etiquetasString.length; i++) { 		 
 	      var Etiqueta = Parse.Object.extend("etiqueta");
 	      var etiqueta = new Etiqueta();	
-	      etiqueta.set("nombre",etiquetasString[i]);	
-	      etiquetas.push(etiqueta);
+	      etiqueta.set("nombre",etiquetasString[i]);	      
+	      //EtiquetasFiguras
+	      var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');	 
+	      var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
+	      var etiqueta_figura = new EtiquetaFigura();	
+	      etiqueta_figura.set("etiqueta",etiqueta);	
+	      etiqueta_figura.set("figura",figura);
+	      etiqueta_figura.save(null, {
+		success: function(etiqueta_figura) {
+		  // Execute any logic that should take place after the object is saved.
+		  alert(' New etiqueta_figura created with objectId: ' + etiqueta_figura.id );
+		  
+		},
+		error: function(etiqueta_figura, error) {
+		  // Execute any logic that should take place if the save fails.
+		  // error is a Parse.Error with an error code and description.
+		  alert('Failed to create new etiqueta, with error code: ' + error.description);
+		}
+	      });
+	      
 	      etiqueta.save(null, {
 		success: function(etiqueta) {
 		  // Execute any logic that should take place after the object is saved.
-		  alert('New etiqueta created with objectId: ' + etiqueta.id);
-		  
-		  //EtiquetasFiguras
-		  var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');
-		  var etiquetas = [];
-		  for (var i = 0; i < etiquetasString.length; i++) { 		 
-		    var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
-		    var etiqueta_figura = new EtiquetaFigura();	
-		    etiqueta_figura.set("etiqueta",etiqueta);	
-		    etiqueta_figura.set("figura",figura);
-		    etiqueta_figura.save(null, {
-		      success: function(etiqueta_figura) {
-			// Execute any logic that should take place after the object is saved.
-			alert('New etiqueta_figura created with objectId: ' + etiqueta_figura.id);
-			
-		      },
-		      error: function(etiqueta_figura, error) {
-			// Execute any logic that should take place if the save fails.
-			// error is a Parse.Error with an error code and description.
-			alert('Failed to create new etiqueta_figura, with error code: ' + error.description);
-		      }
-		    });
-		};
+		  alert('New etiqueta created with objectId: ' + etiqueta.id );
 		  
 		},
-		error: function(figura, error) {
+		error: function(etiqueta, error) {
 		  // Execute any logic that should take place if the save fails.
 		  // error is a Parse.Error with an error code and description.
 		  alert('Failed to create new etiqueta, with error code: ' + error.description);
