@@ -11,6 +11,7 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
+    <plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
     <content src="index.html" />
     <access origin="*" />
 </widget>
