@@ -132,6 +132,12 @@
 						<div class="col-md-4"><input id="inputEtiquetas"/></div>
 					</div>
 
+					<div class="row">
+						<div class="col-md-4">
+							<button id="buttonCargarImagen">Cargar Imagen</button>
+						</div>
+					</div>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -142,97 +148,102 @@
 	</div>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<!-- Bootstrap JS is not required, but included for the responsive demo navigation and button states -->
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 	<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 	<script src="js/bootstrap-image-gallery.js"></script>
-	<!--         <script type="text/javascript" src="cordova.js"></script> -->
+	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" 	src="js/parse-1.2.18.min.js"></script>
 	<script src="js/backend-conexion.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script type="text/javascript">
 
-function getPhoto() {
-    // Retrieve image file location from specified source
-    navigator.camera.getPicture( onPhotoURISuccess, onFail, 
-    { quality: 50, destinationType: destinationType.FILE_URI,
-    sourceType: Camera.PictureSourceType.PHOTOLIBRARY } );
-};
+	document.addEventListener("deviceready",onDeviceReady,false);
 
-function onPhotoURISuccess(){
-	
-};
+	function onDeviceReady(){
+		document.getElementById("buttonCargarImagen").onclick = getPhoto;
+	};
 
-function onFail(){
-	
-};
+	function getPhoto() {
+	    // Retrieve image file location from specified source
+	    console.log("GetPhoto");
+	    navigator.camera.getPicture( onPhotoURISuccess, onFail, 
+	    { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI,
+	    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY } );
+	};
 
-document.getElementById("buttonNuevaFigura").onclick = function () {
+	function onPhotoURISuccess(imageURI){
 
-	var Figura = Parse.Object.extend("mini_figura");
+	};
 
-	var figura = new Figura();
+	function onFail(message) {
+      alert('Failed because: ' + message);
+    }
 
-	//Figuras
-	figura.set("nombre", document.getElementById("inputTitulo").value);
-	figura.set("descripcion", document.getElementById("inputDescripcion").value);
-	figura.set("serie", document.getElementById("inputSerie").value);
 
-	figura.save(null, {
 
-		success: function(figura) {
-			// Execute any logic that should take place after the object is saved.
-			alert('New figura created with objectId: ' + figura.id);		
-		},
+	document.getElementById("buttonNuevaFigura").onclick = function () {
 
-		error: function(figura, error) {
-			// Execute any logic that should take place if the save fails.
-			// error is a Parse.Error with an error code and description.
-			alert('Failed to create new figura, with error code: ' + error.description);
-		}
+		var Figura = Parse.Object.extend("mini_figura");
 
-	});
-	//Etiquetas
-	var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');
-	for (var i = 0; i < etiquetasString.length; i++) { 		 
-	  	var Etiqueta = Parse.Object.extend("etiqueta");
-	  	var etiqueta = new Etiqueta();	
-	  	etiqueta.set("nombre",etiquetasString[i]);	      
-		//EtiquetasFiguras
-		var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');	 
-		var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
-		var etiqueta_figura = new EtiquetaFigura();	
-		etiqueta_figura.set("etiqueta",etiqueta);	
-		etiqueta_figura.set("figura",figura);
-		etiqueta_figura.save(null, {
-			success: function(etiqueta_figura) {
-		    // Execute any logic that should take place after the object is saved.
-		    alert(' New etiqueta_figura created with objectId: ' + etiqueta_figura.id );
+		var figura = new Figura();
 
+		//Figuras
+		figura.set("nombre", document.getElementById("inputTitulo").value);
+		figura.set("descripcion", document.getElementById("inputDescripcion").value);
+		figura.set("serie", document.getElementById("inputSerie").value);
+
+		figura.save(null, {
+
+			success: function(figura) {
+				// Execute any logic that should take place after the object is saved.
+				alert('New figura created with objectId: ' + figura.id);		
 			},
-			error: function(etiqueta_figura, error) {
-			    // Execute any logic that should take place if the save fails.
-			    // error is a Parse.Error with an error code and description.
-			    alert('Failed to create new etiqueta, with error code: ' + error.description);
-			}
-		});
-		etiqueta.save(null, {
-			success: function(etiqueta) {
-		    	// Execute any logic that should take place after the object is saved.
-		    	alert('New etiqueta created with objectId: ' + etiqueta.id );
-			},
-			error: function(etiqueta, error) {
+
+			error: function(figura, error) {
 				// Execute any logic that should take place if the save fails.
 				// error is a Parse.Error with an error code and description.
-				alert('Failed to create new etiqueta, with error code: ' + error.description);
+				alert('Failed to create new figura, with error code: ' + error.description);
 			}
+
 		});
+		//Etiquetas
+		var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');
+		for (var i = 0; i < etiquetasString.length; i++) { 		 
+		  	var Etiqueta = Parse.Object.extend("etiqueta");
+		  	var etiqueta = new Etiqueta();	
+		  	etiqueta.set("nombre",etiquetasString[i]);	      
+			//EtiquetasFiguras
+			var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');	 
+			var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
+			var etiqueta_figura = new EtiquetaFigura();	
+			etiqueta_figura.set("etiqueta",etiqueta);	
+			etiqueta_figura.set("figura",figura);
+			etiqueta_figura.save(null, {
+				success: function(etiqueta_figura) {
+			    // Execute any logic that should take place after the object is saved.
+			    alert(' New etiqueta_figura created with objectId: ' + etiqueta_figura.id );
+
+				},
+				error: function(etiqueta_figura, error) {
+				    // Execute any logic that should take place if the save fails.
+				    // error is a Parse.Error with an error code and description.
+				    alert('Failed to create new etiqueta, with error code: ' + error.description);
+				}
+			});
+			etiqueta.save(null, {
+				success: function(etiqueta) {
+			    	// Execute any logic that should take place after the object is saved.
+			    	alert('New etiqueta created with objectId: ' + etiqueta.id );
+				},
+				error: function(etiqueta, error) {
+					// Execute any logic that should take place if the save fails.
+					// error is a Parse.Error with an error code and description.
+					alert('Failed to create new etiqueta, with error code: ' + error.description);
+				}
+			});
+		};
 	};
-};
-
-
-
-</script>
+	</script>
 
 </body>
 </html>

@@ -1,3 +1,3 @@
-# view AndroidManifest.xml #generated:6
--keep class cr.tec.moviles.App { <init>(...); }
+# view AndroidManifest.xml #generated:7
+-keep class cr.tec.moviles.TinyLego { <init>(...); }
 

@@ -18,222 +18,234 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-             <!-- Latest compiled and minified CSS -->
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone=no" />
+	<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<!-- Latest compiled and minified CSS -->
 	<!-- 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
-		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-		<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
-		<link rel="stylesheet" href="css/bootstrap-image-gallery.css">
-		<link rel="stylesheet" href="css/demo.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+	<link rel="stylesheet" href="css/bootstrap-image-gallery.css">
+	<link rel="stylesheet" href="css/demo.css">
 
-	    <title>TinyLEGO</title>
-	    </head>
-	    <body>
-	    <div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+	<title>TinyLEGO</title>
+</head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
 
-    
+
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-fixed-top .navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://github.com/blueimp/Bootstrap-Image-Gallery">TinyLego</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<!-- Button trigger modal -->
+				<ul class="nav navbar-nav">
+					<li><a data-toggle="modal" data-target="#myModal">Crear</a></li>
+					<li><a href="https://blueimp.net">&copy; Emmanuel Mora Marín</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 	<div class="container">
-	    <div class="navbar-header">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-fixed-top .navbar-collapse">
-		    <span class="icon-bar"></span>
-		    <span class="icon-bar"></span>
-		    <span class="icon-bar"></span>
-		</button>
-		<a class="navbar-brand" href="https://github.com/blueimp/Bootstrap-Image-Gallery">TinyLego</a>
-	    </div>
-	    <div class="navbar-collapse collapse">
-		<!-- Button trigger modal -->
-		<ul class="nav navbar-nav">
-		    <li><a data-toggle="modal" data-target="#myModal">Crear</a></li>
-		    <li><a href="https://blueimp.net">&copy; Emmanuel Mora Marín</a></li>
-		</ul>
-	    </div>
+		<blockquote>
+			<p>TinyLego te revive la infancia con LEGO</p>
+		</blockquote>
+		<br>
+		<!-- The container for the list of example images -->
+		<div id="links"></div>
+		<br>
 	</div>
-    </div>
-      <div class="container">
-	  <blockquote>
-	      <p>TinyLego te revive la infancia con LEGO</p>
-	  </blockquote>
-	  <br>
-	  <!-- The container for the list of example images -->
-	  <div id="links"></div>
-	  <br>
-      </div>
-      <div id="minifigures"></div>      
-      <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-      <div id="blueimp-gallery" class="blueimp-gallery">
-	  <!-- The container for the modal slides -->
-	  <div class="slides"></div>
-	  <!-- Controls for the borderless lightbox -->
-	  <h3 class="title"></h3>
-	  <a class="prev">‹</a>
-	  <a class="next">›</a>
-	  <a class="close">×</a>
-	  <a class="play-pause"></a>
-	  <ol class="indicator"></ol>
-	  <!-- The modal dialog, which will be used to wrap the lightbox content -->
-	  <div class="modal fade">
-      <div class="modal-dialog">
-	  <div class="modal-content">
-	      <div class="modal-header">
-		  <button type="button" class="close" aria-hidden="true">&times;</button>
-		  <h4 class="modal-title"></h4>
-	      </div>
-	      <div class="modal-body"></div>
-	      <div class="modal-description" id="description"></div>
-	      <div class="modal-footer">
-		  <button type="button" class="btn btn-default pull-left prev">
-		      <i class="glyphicon glyphicon-chevron-left"></i>
-		      Previous
-		  </button>
-		  <button type="button" class="btn btn-primary next">
-		      Next
-		      <i class="glyphicon glyphicon-chevron-right"></i>
-		  </button>
-	      </div>
-	  </div>
-      </div>
-  </div>
-  </div>
-      <!-- Modal -->
-     <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" display="none" aria-hidden="true" >
-	<div class="modal-dialog">
-	  <div class="modal-content">
-	    <div class="modal-header">
-	      <button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
-	      <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-	    </div>
-	    <div class="modal-body">
-	    
-	      <div class="row">
-		<div class="col-md-4">Titulo</div>
-		<div class="col-md-4"><input id="inputTitulo"/></div>
-	      </div>
-	      
-	      <div class="row">
-		<div class="col-md-4">Serie</div>
-		<div class="col-md-4"><input id="inputSerie"/></div>
-	      </div>
-	      
-	      <div class="row">
-		<div class="col-md-4">Descripcion</div>
-		<div class="col-md-4"><input id="inputDescripcion"/></div>
-	      </div>
-	      
-	      <div class="row">
-		<div class="col-md-4">Etiquetas</div>
-		<div class="col-md-4"><input id="inputEtiquetas"/></div>
-	      </div>
-	      
-	    </div>
-	    <div class="modal-footer">
-	      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      <button type="button" class="btn btn-primary" id="buttonNuevaFigura">Save changes</button>
-	    </div>
-	  </div>
+	<div id="minifigures"></div>      
+	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+	<div id="blueimp-gallery" class="blueimp-gallery">
+		<!-- The container for the modal slides -->
+		<div class="slides"></div>
+		<!-- Controls for the borderless lightbox -->
+		<h3 class="title"></h3>
+		<a class="prev">‹</a>
+		<a class="next">›</a>
+		<a class="close">×</a>
+		<a class="play-pause"></a>
+		<ol class="indicator"></ol>
+		<!-- The modal dialog, which will be used to wrap the lightbox content -->
+		<div class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" aria-hidden="true">&times;</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-description" id="description"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default pull-left prev">
+							<i class="glyphicon glyphicon-chevron-left"></i>
+							Previous
+						</button>
+						<button type="button" class="btn btn-primary next">
+							Next
+							<i class="glyphicon glyphicon-chevron-right"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-      </div>
-     
+	<!-- Modal -->
+	<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" display="none" aria-hidden="true" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="row">
+						<div class="col-md-4">Titulo</div>
+						<div class="col-md-4"><input id="inputTitulo"/></div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">Serie</div>
+						<div class="col-md-4"><input id="inputSerie"/></div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">Descripcion</div>
+						<div class="col-md-4"><input id="inputDescripcion"/></div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">Etiquetas</div>
+						<div class="col-md-4"><input id="inputEtiquetas"/></div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+							<button id="buttonCargarImagen">Cargar Imagen</button>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="buttonNuevaFigura">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<!-- Bootstrap JS is not required, but included for the responsive demo navigation and button states -->
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 	<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 	<script src="js/bootstrap-image-gallery.js"></script>
-<!--         <script type="text/javascript" src="cordova.js"></script> -->
-    <script type="text/javascript" 	src="js/parse-1.2.18.min.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" 	src="js/parse-1.2.18.min.js"></script>
 	<script src="js/backend-conexion.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script type="text/javascript">
-        
-	   function getPhoto() {
-	      // Retrieve image file location from specified source
-	    navigator.camera.getPicture( onPhotoURISuccess, onFail, 
-	    	{ quality: 50, destinationType: destinationType.FILE_URI,
-	    		sourceType: Camera.PictureSourceType.PHOTOLIBRARY } );
-	    };
-	    
-	    function onPhotoURISuccess(){
-	    	
-	    };
-	    
-	    function onFail(){
-	    
-	    };
- 
-           //  app.initialize()
-           document.getElementById("buttonNuevaFigura").onclick = function () { 
-	    var Figura = Parse.Object.extend("mini_figura");
-	    var figura = new Figura();
-	    
-	    //Figuras
-	    figura.set("nombre", document.getElementById("inputTitulo").value);
-	    figura.set("descripcion", document.getElementById("inputDescripcion").value);
-	    figura.set("serie", document.getElementById("inputSerie").value);
-	    
-	    
-	    figura.save(null, {
-	      success: function(figura) {
-		// Execute any logic that should take place after the object is saved.
-		alert('New figura created with objectId: ' + figura.id);
-		
-		
-	      },
-	      error: function(figura, error) {
-		// Execute any logic that should take place if the save fails.
-		// error is a Parse.Error with an error code and description.
-		alert('Failed to create new figura, with error code: ' + error.description);
-	      }
-	    });
-	      //Etiquetas
-	    var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');
-	    for (var i = 0; i < etiquetasString.length; i++) { 		 
-	      var Etiqueta = Parse.Object.extend("etiqueta");
-	      var etiqueta = new Etiqueta();	
-	      etiqueta.set("nombre",etiquetasString[i]);	      
-	      //EtiquetasFiguras
-	      var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');	 
-	      var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
-	      var etiqueta_figura = new EtiquetaFigura();	
-	      etiqueta_figura.set("etiqueta",etiqueta);	
-	      etiqueta_figura.set("figura",figura);
-	      etiqueta_figura.save(null, {
-		success: function(etiqueta_figura) {
-		  // Execute any logic that should take place after the object is saved.
-		  alert(' New etiqueta_figura created with objectId: ' + etiqueta_figura.id );
-		  
-		},
-		error: function(etiqueta_figura, error) {
-		  // Execute any logic that should take place if the save fails.
-		  // error is a Parse.Error with an error code and description.
-		  alert('Failed to create new etiqueta, with error code: ' + error.description);
-		}
-	      });
-	      
-	      etiqueta.save(null, {
-		success: function(etiqueta) {
-		  // Execute any logic that should take place after the object is saved.
-		  alert('New etiqueta created with objectId: ' + etiqueta.id );
-		  
-		},
-		error: function(etiqueta, error) {
-		  // Execute any logic that should take place if the save fails.
-		  // error is a Parse.Error with an error code and description.
-		  alert('Failed to create new etiqueta, with error code: ' + error.description);
-		}
-	      });
-           };
-        };
-           
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript">
 
-           
-        </script>
-        
-    </body>
+	document.addEventListener("deviceready",onDeviceReady,false);
+
+	function onDeviceReady(){
+	    alert("Ready. Camera:"+navigator.camera);
+		document.getElementById("buttonCargarImagen").onclick = getPhoto;
+	};
+
+	function getPhoto() {
+	    // Retrieve image file location from specified source
+	    console.log("GetPhoto");
+	    alert("GetPhoto"+navigator.camera);
+	    navigator.camera.getPicture( onPhotoURISuccess, onFail, 
+	    { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI,
+	    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY } );
+	};
+
+	function onPhotoURISuccess(imageURI){
+
+	};
+
+	function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+
+
+
+	document.getElementById("buttonNuevaFigura").onclick = function () {
+
+		var Figura = Parse.Object.extend("mini_figura");
+
+		var figura = new Figura();
+
+		//Figuras
+		figura.set("nombre", document.getElementById("inputTitulo").value);
+		figura.set("descripcion", document.getElementById("inputDescripcion").value);
+		figura.set("serie", document.getElementById("inputSerie").value);
+
+		figura.save(null, {
+
+			success: function(figura) {
+				// Execute any logic that should take place after the object is saved.
+				alert('New figura created with objectId: ' + figura.id);		
+			},
+
+			error: function(figura, error) {
+				// Execute any logic that should take place if the save fails.
+				// error is a Parse.Error with an error code and description.
+				alert('Failed to create new figura, with error code: ' + error.description);
+			}
+
+		});
+		//Etiquetas
+		var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');
+		for (var i = 0; i < etiquetasString.length; i++) { 		 
+		  	var Etiqueta = Parse.Object.extend("etiqueta");
+		  	var etiqueta = new Etiqueta();	
+		  	etiqueta.set("nombre",etiquetasString[i]);	      
+			//EtiquetasFiguras
+			var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');	 
+			var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
+			var etiqueta_figura = new EtiquetaFigura();	
+			etiqueta_figura.set("etiqueta",etiqueta);	
+			etiqueta_figura.set("figura",figura);
+			etiqueta_figura.save(null, {
+				success: function(etiqueta_figura) {
+			    // Execute any logic that should take place after the object is saved.
+			    alert(' New etiqueta_figura created with objectId: ' + etiqueta_figura.id );
+
+				},
+				error: function(etiqueta_figura, error) {
+				    // Execute any logic that should take place if the save fails.
+				    // error is a Parse.Error with an error code and description.
+				    alert('Failed to create new etiqueta, with error code: ' + error.description);
+				}
+			});
+			etiqueta.save(null, {
+				success: function(etiqueta) {
+			    	// Execute any logic that should take place after the object is saved.
+			    	alert('New etiqueta created with objectId: ' + etiqueta.id );
+				},
+				error: function(etiqueta, error) {
+					// Execute any logic that should take place if the save fails.
+					// error is a Parse.Error with an error code and description.
+					alert('Failed to create new etiqueta, with error code: ' + error.description);
+				}
+			});
+		};
+	};
+	</script>
+
+</body>
 </html>
