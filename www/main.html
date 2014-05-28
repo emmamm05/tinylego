@@ -136,6 +136,9 @@
 						<div class="col-md-4">
 							<button id="buttonCargarImagen">Cargar Imagen</button>
 						</div>
+						<div class="col-md-4">
+    						<img style="display:none;width:360px;height:360px;" id="imageFigure" src="" />
+    					</div>
 					</div>
 
 				</div>
@@ -167,12 +170,14 @@
 	    // Retrieve image file location from specified source
 	    console.log("GetPhoto");
 	    navigator.camera.getPicture( onPhotoURISuccess, onFail, 
-	    { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI,
+	    { quality: 50, destinationType: navigator.camera.DestinationType.DATA_URL,
 	    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY } );
 	};
 
-	function onPhotoURISuccess(imageURI){
-
+	function onPhotoURISuccess(imageData){
+	   image = document.getElementById("imageFigure");
+       image.src = "data:image/jpeg;base64," + imageData;
+       image.style.display = 'block';
 	};
 
 	function onFail(message) {

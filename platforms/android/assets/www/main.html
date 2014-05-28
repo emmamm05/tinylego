@@ -136,6 +136,9 @@
 						<div class="col-md-4">
 							<button id="buttonCargarImagen">Cargar Imagen</button>
 						</div>
+						<div class="col-md-4">
+    						<img style="display:none;width:360px;height:360px;" id="imageFigure" src="" />
+    					</div>
 					</div>
 
 				</div>
@@ -160,21 +163,21 @@
 	document.addEventListener("deviceready",onDeviceReady,false);
 
 	function onDeviceReady(){
-	    alert("Ready. Camera:"+navigator.camera);
 		document.getElementById("buttonCargarImagen").onclick = getPhoto;
 	};
 
 	function getPhoto() {
 	    // Retrieve image file location from specified source
 	    console.log("GetPhoto");
-	    alert("GetPhoto"+navigator.camera);
 	    navigator.camera.getPicture( onPhotoURISuccess, onFail, 
-	    { quality: 50, destinationType: navigator.camera.DestinationType.FILE_URI,
+	    { quality: 50, destinationType: navigator.camera.DestinationType.DATA_URL,
 	    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY } );
 	};
 
-	function onPhotoURISuccess(imageURI){
-
+	function onPhotoURISuccess(imageData){
+	   image = document.getElementById("imageFigure");
+       image.src = "data:image/jpeg;base64," + imageData;
+       image.style.display = 'block';
 	};
 
 	function onFail(message) {
