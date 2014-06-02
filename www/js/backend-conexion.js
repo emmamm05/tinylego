@@ -4,36 +4,38 @@ function loadData(){
 	var Figura = Parse.Object.extend("mini_figura");
 	var query = new Parse.Query(Figura);
 	query.find({
-	      success: function(results){
-	      	var tags=[];
-	      	for (var indexFig=0; indexFig<results.length; indexFig++){
-		      	var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
-		      	var query = new Parse.Query(EtiquetaFigura);
-		      	query.equalTo("figura",results[indexFig]);
-		      	query.include("etiqueta");
-		      	query.find({
-		      		success: function(etiquetas_figuras){
-		      			var etiquetasByFig = "";
-		      			for (var indexTag=0; indexTag<etiquetas_figuras.length; indexTag++){
-			      			etiquetasByFig += " "+etiquetas_figuras[indexTag].get('etiqueta').get('nombre');
-		      				console.log("Etiqueta_Tag:"+etiquetas_figuras[indexTag].get('etiqueta').get('nombre'));
-			      		};
-			      		tags.push(etiquetasByFig);
-	      				if (indexFig == results.length){
-	      					console.log("tags "+JSON.stringify(tags));
-	      					renderResults(results,tags);	      					
-	      				}
-		      		},
-		      		error: function(error){
-		      			alert("Error cargando etiquetas");
-		      		}
-		      	});
-		      };
-		  	},
+	      success: loadEtiquetas,
 		  error: function(error) {
 		      alert("Se econtraron con error");
 		  }
 	});
+};
+
+function loadEtiquetas(results){
+  	var tags=[];
+  	for (var indexFig=0; indexFig<results.length; indexFig++){
+      	var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
+      	var query = new Parse.Query(EtiquetaFigura);
+      	query.equalTo("figura",results[indexFig]);
+      	query.include("etiqueta");
+      	query.find({
+      		success: function(etiquetas_figuras){
+      			var etiquetasByFig = "";
+      			for (var indexTag=0; indexTag<etiquetas_figuras.length; indexTag++){
+	      			etiquetasByFig += " "+etiquetas_figuras[indexTag].get('etiqueta').get('nombre');
+      				console.log("Etiqueta_Tag:"+etiquetas_figuras[indexTag].get('etiqueta').get('nombre'));
+	      		};
+	      		tags.push(etiquetasByFig);
+  				if (indexFig == results.length){
+  					console.log("tags "+JSON.stringify(tags));
+  					renderResults(results,tags);	      					
+  				}
+      		},
+      		error: function(error){
+      			alert("Error cargando etiquetas");
+      		}
+      	});
+      };
 };
 
 function renderTags(tags,index){
@@ -55,9 +57,9 @@ function renderResults(results,tags){
 			//Para el index
 			if (!url_src){
 			  document.getElementById("minifigures").innerHTML = document.getElementById("minifigures").innerHTML + 
-			  "<div class='row'>" +
+			  "<div class='row figureItem'>" +
 			    "<div class='col-md-4'>" +
-			      "<div class='row'>"+title+"</div>" + 
+			      "<div class='row'>"+title+" <a href='www.google.co.cr'>Ver detalle</a></div>" + 
 			      "<div class='row'>"+serie+"</div>" + 
 			      "<div class='row'>"+descripcion+"</div>" +
 			      "<div class='row' id=figura"+i+" >"+"Etiquetas:"+tags[i]+"</div>" +
@@ -69,10 +71,14 @@ function renderResults(results,tags){
 			  document.getElementById('links').innerHTML = document.getElementById('links').innerHTML + 
 			  "<a href='"+ url +"' title='"+title+"' data-gallery></a>";
 			  document.getElementById("minifigures").innerHTML = document.getElementById("minifigures").innerHTML + 
-			    "<div class='row'>" +
-			      "<div class='col-md-4'>"+"<img src='"+url+"'>"+"</div>" +
+			    "<div class='row figureItem'>" +
+			      "<div class='col-md-4'>"+"<img height='200' width='200' src='"+url+"'>"+"</div>" +
 			      "<div class='col-md-4'>" +
-				"<div class='row'>"+"<a href='"+url+"' data-gallery>"+title+"</a></div>" + 
+				"<div class='row'>"+
+					"<div class='col-md-4'>"+
+					"<a href='"+url+"' data-gallery>"+title+ "</a>"+
+					"</div>"+
+				"</div>" + 
 				"<div class='row'>"+serie+"</div>" + 
 				"<div class='row'>"+descripcion+"</div>" + 
 			      "<div class='row' id=figura"+i+" >"+"Etiquetas:"+tags[i]+"</div>" +
@@ -172,7 +178,7 @@ function buscarPorEtiqueta(){
 						}
 						console.log("figuras: "+figurasEncontradas);
 						if (indextag == tags.length){
-							renderResults(figurasEncontradas);
+							loadEtiquetas(figurasEncontradas);
 						}
 					}, 
 					error: function(error){

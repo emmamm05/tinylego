@@ -37,8 +37,6 @@
 </head>
 <body>
 	<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
-
-
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-fixed-top .navbar-collapse">
@@ -62,10 +60,13 @@
 			<p>TinyLego te revive la infancia con LEGO</p>
 		</blockquote>
 		<br>
-		<div class="row" >
-			<input id="inputBusquedaTags"></input>
-			<button id="buttonBusquedaTags">Buscar</button>
-		</div>
+			<div class="col-md-4">
+				<input id="inputBusquedaTags" class="form-control" placeholder="Etiquetas"></input>
+			</div>
+			<div class="col-md-4">
+				<button id="buttonBusquedaTags" class="btn btn-default">Buscar</button>
+			</div>
+
 		<!-- The container for the list of example images -->
 		<div id="links"></div>
 		<br>
@@ -118,22 +119,22 @@
 
 					<div class="row">
 						<div class="col-md-4">Titulo</div>
-						<div class="col-md-4"><input id="inputTitulo"/></div>
+						<div class="col-md-4"><input id="inputTitulo" class="form-control figureItem2" /></div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-4">Serie</div>
-						<div class="col-md-4"><input id="inputSerie"/></div>
+						<div class="col-md-4"><input id="inputSerie" class="form-control figureItem2" /></div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-4">Descripcion</div>
-						<div class="col-md-4"><input id="inputDescripcion"/></div>
+						<div class="col-md-4"><input id="inputDescripcion" class="form-control figureItem2" /></div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-4">Etiquetas</div>
-						<div class="col-md-4"><input id="inputEtiquetas"/></div>
+						<div class="col-md-4"><input id="inputEtiquetas" class="form-control figureItem2" /></div>
 					</div>
 
 					<div class="row">
@@ -168,6 +169,7 @@
 		loadData();
 
 		var image;
+
 		function onDeviceReady(){
 			document.getElementById("buttonCargarImagen").onclick = getPhoto;
 		};
@@ -188,7 +190,7 @@
 		};
 
 		function onFail(message) {
-	      alert('Failed because: ' + message);
+	       alert('Failed because: ' + message);
 	    };
 
 		document.addEventListener("deviceready",onDeviceReady,false);

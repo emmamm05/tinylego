@@ -44,8 +44,12 @@ body {
     width:100%;
 }
 
-row {
-    margin:50px 50px 50px 50px;
+.figureItem {
+    margin:50px 50px 50px 50px; 
+}
+
+.figureItem2 {
+    margin: 10px 10px 10px 10px; 
 }
 
 /* Portrait layout (default) */
