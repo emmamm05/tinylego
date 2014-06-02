@@ -2,16 +2,46 @@
 function loadData(){
 	Parse.initialize("B0RmWvAnwf8prJLztD9wSGsxAn1o2Lknzl6tqyGg", "Uca15YO3L0TNyNfZYwfC9ENCVm6dIY1U8AkDj0LN");
 	var Figura = Parse.Object.extend("mini_figura");
-	var query = new Parse.Query(Figura);	    
+	var query = new Parse.Query(Figura);
 	query.find({
-	      success: renderResults,
+	      success: function(results){
+	      	var tags=[];
+	      	for (var indexFig=0; indexFig<results.length; indexFig++){
+		      	var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
+		      	var query = new Parse.Query(EtiquetaFigura);
+		      	query.equalTo("figura",results[indexFig]);
+		      	query.include("etiqueta");
+		      	query.find({
+		      		success: function(etiquetas_figuras){
+		      			var etiquetasByFig = "";
+		      			for (var indexTag=0; indexTag<etiquetas_figuras.length; indexTag++){
+			      			etiquetasByFig += " "+etiquetas_figuras[indexTag].get('etiqueta').get('nombre');
+		      				console.log("Etiqueta_Tag:"+etiquetas_figuras[indexTag].get('etiqueta').get('nombre'));
+			      		};
+			      		tags.push(etiquetasByFig);
+	      				if (indexFig == results.length){
+	      					console.log("tags "+JSON.stringify(tags));
+	      					renderResults(results,tags);	      					
+	      				}
+		      		},
+		      		error: function(error){
+		      			alert("Error cargando etiquetas");
+		      		}
+		      	});
+		      };
+		  	},
 		  error: function(error) {
-		    alert("Se econtraron con error");
+		      alert("Se econtraron con error");
 		  }
 	});
 };
 
-function renderResults(results){
+function renderTags(tags,index){
+	console.log('figura'+index+" "+tags);
+	document.getElementById('figura'+index).innerHTML = tags;
+}
+
+function renderResults(results,tags){
 	  	  document.getElementById('links').innerHTML = "";
 	  	  document.getElementById("minifigures").innerHTML = "";
 	      for (var i = 0; i < results.length; i++) { 
@@ -21,7 +51,7 @@ function renderResults(results){
 			var serie = object.get('serie');
 			var descripcion = object.get('descripcion');
 			console.log(object);
-			  
+
 			//Para el index
 			if (!url_src){
 			  document.getElementById("minifigures").innerHTML = document.getElementById("minifigures").innerHTML + 
@@ -29,7 +59,8 @@ function renderResults(results){
 			    "<div class='col-md-4'>" +
 			      "<div class='row'>"+title+"</div>" + 
 			      "<div class='row'>"+serie+"</div>" + 
-			      "<div class='row'>"+descripcion+"</div>" + 
+			      "<div class='row'>"+descripcion+"</div>" +
+			      "<div class='row' id=figura"+i+" >"+"Etiquetas:"+tags[i]+"</div>" +
 			    "</div>" +
 			  "</div>";	
 		        }else{	
@@ -44,6 +75,7 @@ function renderResults(results){
 				"<div class='row'>"+"<a href='"+url+"' data-gallery>"+title+"</a></div>" + 
 				"<div class='row'>"+serie+"</div>" + 
 				"<div class='row'>"+descripcion+"</div>" + 
+			      "<div class='row' id=figura"+i+" >"+"Etiquetas:"+tags[i]+"</div>" +
 			      "</div>" +
 			    "</div>";
 			};
@@ -121,31 +153,26 @@ function buscarPorEtiqueta(){
 		//busqueda de las etiquetas
 		var Etiqueta = Parse.Object.extend("etiqueta");
 		var query = new Parse.Query(Etiqueta);
-		console.log("query: " + query+" , etiquetas: "+tags);
-		query.equalTo("etiqueta",tags[indextag]);
+		console.log("query: " + query+" , etiqueta: |"+tags[indextag]+"|");
+		query.equalTo("nombre",tags[indextag]);
 		query.find({
 			success: function(etiquetas){
-				console.log("etiquetas: "+etiquetas);
+				console.log("etiquetas: "+etiquetas+", size: "+etiquetas.length);
 				var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
 				var query = new Parse.Query(EtiquetaFigura);
 				query.equalTo("etiqueta",etiquetas[0]);
+				query.include("figura");
 				query.find({
 					success: function(etiquetas_figuras){
 						console.log("etiquetas_figuras: "+etiquetas_figuras);
-						for (var et_fig_index=0; 
-							et_fig_index<etiquetas_figuras.length; et_fig_index++){
-							var Figura = Parse.Object.extend("figura");
-							var query = new Parse.Query(Figura);
-							query.equalTo("figura",etiquetas_figuras[0]);
-							query.find({
-								success: function(figura){
-									figurasEncontradas.push(figura);
-								},
-								error: function(error){
-									console.log("figura "+error);
-								}
-							});
-							
+						for (var index=0; index<etiquetas_figuras.length; index++){
+							var figura =  etiquetas_figuras[index].get('figura');	
+							console.log(JSON.stringify(figura));
+							figurasEncontradas.push(figura);						
+						}
+						console.log("figuras: "+figurasEncontradas);
+						if (indextag == tags.length){
+							renderResults(figurasEncontradas);
 						}
 					}, 
 					error: function(error){
@@ -157,7 +184,5 @@ function buscarPorEtiqueta(){
 				console.log("etiqueta: "+error);
 			}
 		});
-		console.log("figuras: "+figurasEncontradas);
-		renderResults(figurasEncontradas);
 	};
 };
