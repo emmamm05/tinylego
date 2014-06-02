@@ -62,6 +62,10 @@
 			<p>TinyLego te revive la infancia con LEGO</p>
 		</blockquote>
 		<br>
+		<div class="row" >
+			<input id="inputBusquedaTags"></input>
+			<button id="buttonBusquedaTags">Buscar</button>
+		</div>
 		<!-- The container for the list of example images -->
 		<div id="links"></div>
 		<br>
@@ -161,100 +165,35 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script type="text/javascript">
 
-	document.addEventListener("deviceready",onDeviceReady,false);
+		loadData();
 
-	loadData();
+		var image;
+		function onDeviceReady(){
+			document.getElementById("buttonCargarImagen").onclick = getPhoto;
+		};
 
-	var image;
-	function onDeviceReady(){
-		document.getElementById("buttonCargarImagen").onclick = getPhoto;
-	};
+		function getPhoto() {
+		    // Retrieve image file location from specified source
+		    console.log("GetPhoto");
+		    navigator.camera.getPicture( onPhotoURISuccess, onFail, 
+		    { quality: 100, destinationType: navigator.camera.DestinationType.DATA_URL,
+		    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY } );
+		};
 
-	function getPhoto() {
-	    // Retrieve image file location from specified source
-	    console.log("GetPhoto");
-	    navigator.camera.getPicture( onPhotoURISuccess, onFail, 
-	    { quality: 100, destinationType: navigator.camera.DestinationType.DATA_URL,
-	    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY } );
-	};
+		function onPhotoURISuccess(imageData){
+		   imageTag = document.getElementById("imageFigure");
+	       imageTag.src = "data:image/jpeg;base64," + imageData;
+	       imageTag.style.display = 'block';
+	       image = imageData;
+		};
 
-	function onPhotoURISuccess(imageData){
-	   imageTag = document.getElementById("imageFigure");
-       imageTag.src = "data:image/jpeg;base64," + imageData;
-       imageTag.style.display = 'block';
-       image = imageData;
-	};
+		function onFail(message) {
+	      alert('Failed because: ' + message);
+	    };
 
-	function onFail(message) {
-      alert('Failed because: ' + message);
-    }
-	document.getElementById("buttonNuevaFigura").onclick = salvarFigura;
-
-	function salvarFigura() {
-		var parseImage = new Parse.File("foto.img",{base64:image});
-		parseImage.save().then(
-			function() {
-				var Figura = Parse.Object.extend("mini_figura");
-				var figura = new Figura();
-				//Figuras
-				figura.set("nombre", document.getElementById("inputTitulo").value);
-				figura.set("descripcion", document.getElementById("inputDescripcion").value);
-				figura.set("serie", document.getElementById("inputSerie").value);
-				figura.set("foto", parseImage);
-				figura.save(null, {
-					success: function(figura) {
-						alert('New figura created with objectId: ' + figura.id);	
-						//Etiquetas
-						var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');
-						for (var i = 0; i < etiquetasString.length; i++) { 		 
-						  	var Etiqueta = Parse.Object.extend("etiqueta");
-						  	var etiqueta = new Etiqueta();	
-						  	etiqueta.set("nombre",etiquetasString[i]);	      
-							//EtiquetasFiguras
-							var etiquetasString = document.getElementById("inputEtiquetas").value.split(',');	 
-							var EtiquetaFigura = Parse.Object.extend("etiqueta_figura");
-							var etiqueta_figura = new EtiquetaFigura();	
-							etiqueta_figura.set("etiqueta",etiqueta);	
-							etiqueta_figura.set("figura",figura);
-							etiqueta_figura.save(null, {
-								success: function(etiqueta_figura) {
-								    // Execute any logic that should take place after the object is saved.
-								    alert(' New etiqueta_figura created with objectId: ' + etiqueta_figura.id );
-								    loadData();
-								},
-								error: function(etiqueta_figura, error) {
-								    // Execute any logic that should take place if the save fails.
-								    // error is a Parse.Error with an error code and description.
-								    alert('Failed to create new etiqueta, with error code: ' + error.description);
-								}
-							});
-							etiqueta.save(null, {
-								success: function(etiqueta) {
-							    	// Execute any logic that should take place after the object is saved.
-							    	alert('New etiqueta created with objectId: ' + etiqueta.id );
-								},
-								error: function(etiqueta, error) {
-									// Execute any logic that should take place if the save fails.
-									// error is a Parse.Error with an error code and description.
-									alert('Failed to create new etiqueta, with error code: ' + error.description);
-								}
-							});	
-						};
-					},
-					error: function(figura, error) {
-						alert('Failed to create new figura, with error code: ' + error.description);
-					}
-				});
-			    // The file has been saved to Parse.
-			    alert("Imagen Cargada en Parse");
-		    }, function(error) {
-		        // The file either could not be read, or could not be saved to Parse.
-		        alert("Error subiendo imagen: "+error);
-		    });
-	};
-	
-
-
+		document.addEventListener("deviceready",onDeviceReady,false);
+		document.getElementById("buttonNuevaFigura").onclick = salvarFigura;
+		document.getElementById("buttonBusquedaTags").onclick = buscarPorEtiqueta;
 
 	</script>
 
